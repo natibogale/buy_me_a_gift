@@ -9,6 +9,12 @@ python-dotenv = "==1.0.0"
 mypy = "==1.1.1"
 djangorestframework = "==3.14"
 markdown = "==3.4.3"
+djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
+django-filter = "*"
+django-rest-swagger = "==2.2.0"
+drf-spectacular = "*"
+drf-yasg = "*"
 
 [dev-packages]
 
