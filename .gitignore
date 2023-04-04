@@ -11,8 +11,15 @@ staticfiles/
 *.pyo
 *.env
 *.env.production
-*env,development
+*env.development
 *.DS_Store
 
 # Pipenv specific
 Pipfile.lock
+
+.idea
+*.idea
+.idea/workspace.xml
+
+
+db.sqlite3
