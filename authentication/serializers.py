@@ -30,11 +30,11 @@ class SignupSerializer(serializers.ModelSerializer):
 
 class SigninSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=255)
-    password = serializers.CharField(max_length=128, write_only=True)
+    password = serializers.CharField(max_length=128, write_only=True, validators=[validate_password])
 
     def validate(self, data):
-        email = data.get('email', None)
-        password = data.get('password', None)
+        email = data['email']
+        password = data['password']
         if not email:
             raise serializers.ValidationError('Email is required to log in.')
 

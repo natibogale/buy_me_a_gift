@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 # Determine the current environment based on the value of the DJANGO_ENV environment variable
 # If DJANGO_ENV is not set, assume development
+load_dotenv('.env.development')
 env = os.getenv('DJANGO_ENV', 'development')
 
 # Load the appropriate .env file based on the current environment
@@ -17,12 +18,12 @@ else:
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'sdsdfsdf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Default Authentication Model
 AUTH_USER_MODEL = 'authentication.CustomUser'
@@ -38,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt',
     'drf_yasg',
     'authentication',
+    'products'
 ]
 
 MIDDLEWARE = [
@@ -132,7 +135,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_HEADER_PREFIX': 'Bearer',
 }
+
 
 # Simple JWT settings
 SIMPLE_JWT = {
@@ -143,7 +149,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': JWT_SECRET_KEY,
+    'SIGNING_KEY': "sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
@@ -160,3 +166,19 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Enter the token in the following format: Bearer <token>',
+        }
+    },
+    'API_KEY_HEADER_PREFIX': 'Bearer',
+    'SHOW_REQUEST_HEADERS': True,
+}
+
